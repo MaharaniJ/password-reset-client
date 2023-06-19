@@ -66,7 +66,7 @@ const Register = () => {
         } else {
             // console.log("User Registration Successfully")
 
-            const data = await fetch("http://localhost:5000/register", {
+            const data = await fetch("https://password-reset-server-maharanij.vercel.app/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ fname, email, password, cpassword })

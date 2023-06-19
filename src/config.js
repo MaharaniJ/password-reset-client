@@ -1,4 +1,4 @@
 export const env = {
    
-    api:'http://localhost:5000'
+    api:'https://password-reset-server-maharanij.vercel.app/'
 }
