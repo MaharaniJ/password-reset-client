@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { env } from '../config';
 import "./mix.css";
 
 const Register = () => {
-
+    const navigate = useNavigate()
     const [passShow, setPassShow] = useState(false);
     const [cpassShow, setCPassShow] = useState(false);
 
@@ -66,7 +66,7 @@ const Register = () => {
         } else {
             // console.log("User Registration Successfully")
 
-            const data = await fetch("https://password-reset-server-maharanij.vercel.app/register", {
+            const data = await fetch(`${env.api}/register`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ fname, email, password, cpassword })
@@ -81,6 +81,8 @@ const Register = () => {
                     position: "top-center"
                 });
                 setInputval({ ...inputval, fname: "", email: "", password: "", cpassword: "" })
+                navigate('/dash')
+                
             }
         }
     }

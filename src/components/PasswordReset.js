@@ -19,14 +19,14 @@ const PasswordReset = () => {
     const sendLink = async (e) => {
        e.preventDefault()
     
-    const res = await fetch(`http://localhost:5000/sendpasswordlink`,{
+    const res = await fetch('http://localhost:5000/sendpasswordlink',{
         method:"POST",
         headers:{
             "Content-Type":"application/json"
         },
         body:JSON.stringify({email})
        });
-
+   console.log(res)
     const data = await res.json();
 
     if(data.status == 201){

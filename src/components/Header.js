@@ -8,9 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { env } from "../config";
 
 const Header = () => {
-
-  const [data, setData] = useState()
-  const navigate = useNavigate()
+  const [data, setData] = useState();
+  const navigate = useNavigate();
 
   const { logindata, setLoginData } = useContext(LoginContext);
 
@@ -30,40 +29,40 @@ const Header = () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": token,
-         Accept: "application/json"
-      }
+        Authorization: token,
+        Accept: "application/json",
+      },
     })
       .then((res) => res.json())
-      .then((data) => setData(data))
+      .then((data) => setData(data));
 
-    if (data.status == 201) {
-
+    if (data.status === 201) {
       console.log("User Log-Out");
       localStorage.removeItem("usersdatatoken");
-      setLoginData(false)
+      setLoginData(false);
       navigate("/");
-
     } else {
-      console.log("Error")
-
+      console.log("Error");
     }
-  }
+  };
 
   const goDash = () => {
-    navigate("/dash")
-  }
-
+    navigate("/dash");
+  };
 
   const goError = () => {
-    navigate("*")
-  }
+    navigate("*");
+  };
 
   return (
     <>
       <header>
         <nav>
-          <Link to="/"><h1>Authantication-<span style={{ color: "blue", fontWeight: "bold" }}>Login</span></h1></Link>
+          <Link to="/">
+            <h1>
+              Authantication-<span style={{ color: "blue", fontWeight: "bold" }}>Login</span>
+            </h1>
+          </Link>
 
           <div className="avtar">
             {logindata.ValidUserOne ? (
@@ -78,7 +77,7 @@ const Header = () => {
                 {logindata.ValidUserOne.fname[0].toUpperCase()}
               </Avatar>
             ) : (
-              <Avatar style={{ background: "blue" }} onClick={handleClick}></Avatar>
+              <Avatar style={{ background: "blue" }} onClick={handleClick} />
             )}
           </div>
 
@@ -88,40 +87,36 @@ const Header = () => {
             open={open}
             onClose={handleClose}
             MenuListProps={{
-              "aria-labelledby": "basic-button",
+              "aria-labelledby": "basic-menu",
             }}
           >
-
-            {
-
-              logindata.ValidUserOne ? (
-                <>
-                  <MenuItem onClick={() => {
-                    goDash()
-                    handleClose()
-                  }}>Profile</MenuItem>
-                  <MenuItem onClick={() => {
-                    logoutuser()
-                    handleClose()
-                  }}>Logout</MenuItem>
-                </>
-              ) : (
-                <>
-                  <MenuItem onClick={() => {
-                    goError()
-                    handleClose()
-                  }}>Profile</MenuItem>
-                </>
-              )
-
-            }
-
+            {logindata.ValidUserOne ? (
+              [
+                <MenuItem key="profile" onClick={() => {
+                  goDash();
+                  handleClose();
+                }}>
+                  Profile
+                </MenuItem>,
+                <MenuItem key="logout" onClick={() => {
+                  logoutuser();
+                  handleClose();
+                }}>
+                  Logout
+                </MenuItem>
+              ]
+            ) : (
+              <MenuItem onClick={() => {
+                goError();
+                handleClose();
+              }}>
+                Profile
+              </MenuItem>
+            )}
           </Menu>
         </nav>
       </header>
     </>
-  );
-};
-
-export default Header;
-
+  )
+            }
+            export default Header
